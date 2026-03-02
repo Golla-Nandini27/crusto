@@ -1,0 +1,1652 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>CRUSTO</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+
+
+/* ===== BACKGROUND ===== */
+
+body{
+margin:0;
+font-family:Segoe UI, Arial;
+background:url("{% static 'main/images/bg4.jpg' %}") no-repeat center center fixed;
+background-size:cover;
+color:white;
+}
+
+.overlay{
+background:rgba(0,0,0,0.65);
+min-height:100vh;
+}
+
+
+/* ===== NAVBAR (MODIFIED ONLY THIS SECTION) ===== */
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 30px;
+background:#0b2a5bcc;
+position:sticky;
+top:0;
+z-index:1000;
+backdrop-filter: blur(10px);
+}
+
+.logo{
+display:flex;
+align-items:center;
+font-size:24px;
+font-weight:bold;
+gap:10px;
+}
+
+.logo-img{
+height:40px;
+border-radius:50%;
+}
+
+.nav-links{
+display:flex;
+align-items:center;
+gap:20px;
+}
+
+.nav-links a{
+color:white;
+text-decoration:none;
+font-weight:600;
+transition:.3s;
+}
+
+.nav-links a:hover{
+color:#ff4d6d;
+}
+
+.nav-profile{
+width:38px;
+height:38px;
+border-radius:50%;
+border:2px solid white;
+object-fit:cover;
+cursor:pointer;
+}
+
+.profile-menu{
+position:relative;
+cursor:pointer;
+}
+
+.dropdown{
+
+position:absolute;
+right:0;
+top:50px;
+
+background:white;
+color:black;
+
+width:160px;
+
+border-radius:8px;
+
+box-shadow:0 5px 15px rgba(0,0,0,.3);
+
+display:none;
+
+overflow:hidden;
+
+}
+
+/* ===== PROFESSIONAL PROFILE DROPDOWN ===== */
+
+.dropdown{
+
+position:absolute;
+right:0;
+top:60px;
+
+width:230px;
+
+background:rgba(255,255,255,0.95);
+backdrop-filter:blur(15px);
+
+border-radius:16px;
+
+box-shadow:
+0 15px 35px rgba(0,0,0,0.3);
+
+display:none;
+
+overflow:hidden;
+
+animation:dropdownFade .25s ease;
+
+}
+
+/* arrow */
+.dropdown::before{
+content:"";
+position:absolute;
+top:-8px;
+right:20px;
+width:15px;
+height:15px;
+background:white;
+transform:rotate(45deg);
+}
+
+/* profile header */
+.profile-header{
+
+display:flex;
+align-items:center;
+gap:10px;
+
+padding:15px;
+
+background:linear-gradient(
+135deg,
+#0b2a5b,
+#1e4ea1
+);
+
+color:white;
+
+}
+
+.dropdown-avatar{
+
+width:40px;
+height:40px;
+
+border-radius:50%;
+
+border:2px solid white;
+
+}
+
+.dropdown-name{
+
+font-weight:bold;
+font-size:15px;
+
+}
+
+.dropdown-email{
+
+font-size:12px;
+opacity:.8;
+
+}
+
+/* divider */
+.dropdown-divider{
+height:1px;
+background:#eee;
+}
+
+/* menu links */
+.dropdown a{
+
+display:flex;
+align-items:center;
+
+gap:10px;
+
+padding:13px 16px;
+
+text-decoration:none;
+
+color:#222;
+
+font-weight:600;
+
+transition:.25s;
+
+}
+
+/* hover effect */
+.dropdown a:hover{
+
+background:linear-gradient(
+90deg,
+#e31837,
+#ff4d6d
+);
+
+color:white;
+
+transform:translateX(5px);
+
+}
+
+/* animation */
+@keyframes dropdownFade{
+
+from{
+opacity:0;
+transform:translateY(-10px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* ===== HERO ===== */
+
+.hero{
+text-align:center;
+padding:40px 20px;
+}
+
+.hero button{
+background:#e31837;
+border:none;
+padding:12px 25px;
+color:white;
+border-radius:25px;
+cursor:pointer;
+font-weight:bold;
+}
+
+
+/* ===== MAIN LAYOUT ===== */
+
+.main{
+display:flex;
+padding:20px;
+gap:20px;
+}
+
+
+/* ===== SIDEBAR ===== */
+
+.sidebar{
+width:220px;
+background:rgba(255,255,255,0.95);
+color:black;
+border-radius:10px;
+padding:20px;
+height:fit-content;
+}
+
+.category-item{
+padding:10px;
+border-radius:8px;
+margin-bottom:8px;
+cursor:pointer;
+}
+
+.category-item:hover{
+background:#e31837;
+color:white;
+}
+
+
+/* ===== PRODUCTS ===== */
+
+.products{
+flex:1;
+}
+
+.product-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+gap:20px;
+}
+
+.product-card{
+background:white;
+border-radius:15px;
+padding:12px;
+color:black;
+box-shadow:0 6px 15px rgba(0,0,0,0.3);
+transition:.3s;
+}
+
+.product-card:hover{
+transform:translateY(-6px);
+}
+
+
+/* IMAGE */
+
+.image-box{
+position:relative;
+}
+
+.image-box img{
+width:100%;
+height:160px;
+object-fit:cover;
+border-radius:10px;
+}
+
+
+/* VEG ICON */
+
+.veg-icon{
+position:absolute;
+top:8px;
+left:8px;
+width:18px;
+height:18px;
+border:2px solid green;
+background:white;
+border-radius:3px;
+}
+
+.veg-icon::after{
+content:"";
+width:8px;
+height:8px;
+background:green;
+border-radius:50%;
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+}
+
+
+/* NONVEG ICON */
+
+.nonveg-icon{
+position:absolute;
+top:8px;
+left:8px;
+width:18px;
+height:18px;
+border:2px solid red;
+background:white;
+border-radius:3px;
+}
+
+.nonveg-icon::after{
+content:"";
+width:0;
+height:0;
+border-left:6px solid transparent;
+border-right:6px solid transparent;
+border-bottom:10px solid red;
+position:absolute;
+top:2px;
+left:2px;
+}
+
+
+/* DISCOUNT BADGE */
+
+.discount-badge{
+position:absolute;
+top:8px;
+right:8px;
+background:green;
+color:white;
+padding:4px 8px;
+border-radius:5px;
+font-size:12px;
+font-weight:bold;
+}
+
+
+/* PRICE */
+
+.price{
+margin-top:5px;
+}
+
+.final-price{
+color:#e31837;
+font-weight:bold;
+font-size:18px;
+}
+
+.old-price{
+text-decoration:line-through;
+color:gray;
+margin-left:8px;
+font-size:14px;
+}
+
+
+/* BUTTON */
+
+.product-card button{
+width:100%;
+padding:10px;
+border:none;
+border-radius:8px;
+background:#e31837;
+color:white;
+font-weight:bold;
+cursor:pointer;
+margin-top:10px;
+}
+
+
+/* POPUP */
+
+#cart-popup{
+position:fixed;
+bottom:25px;
+right:25px;
+background:#28a745;
+color:white;
+padding:14px 22px;
+border-radius:8px;
+font-weight:bold;
+opacity:0;
+transform:translateY(20px);
+transition:.3s;
+z-index:9999;
+}
+
+#cart-popup.show{
+opacity:1;
+transform:translateY(0);
+}
+
+
+/* FLOAT CART */
+
+.cart-popup{
+position:fixed;
+bottom:25px;
+right:25px;
+background:#e31837;
+color:white;
+padding:15px 25px;
+border-radius:30px;
+font-weight:bold;
+text-decoration:none;
+box-shadow:0 6px 15px rgba(0,0,0,0.4);
+}
+
+
+/* ===== FOOTER (UNCHANGED) ===== */
+
+.footer{
+background:#0b1f3a;
+color:#ffffff;
+margin-top:170px;
+font-family:Segoe UI, Arial;
+}
+
+.footer-container{
+display:flex;
+flex-wrap:wrap;
+justify-content:space-between;
+padding:50px 40px;
+gap:40px;
+}
+
+.footer-brand{
+max-width:220px;
+}
+
+.footer-logo{
+width:80px;
+border-radius:50%;
+margin-bottom:5px;
+}
+
+.footer-brand h3{
+margin:5px 0;
+font-size:22px;
+}
+
+.footer-brand p{
+color:#cbd5e1;
+font-size:24px;
+}
+
+.footer-col{
+min-width:200px;
+}
+
+.footer-col h4{
+margin-bottom:15px;
+font-size:25px;
+color:#ffffff;
+display:inline-block;
+padding-bottom:5px;
+}
+
+.footer-col p{
+margin:6px 0;
+color:#cbd5e1;
+font-size:17px;
+}
+
+.payments{
+display:flex;
+gap:10px;
+margin-top:15px;
+}
+
+.payments img{
+width:55px;
+height:40px;
+padding:6px;
+border-radius:1px;
+transition:.3s;
+}
+
+.payments img:hover{
+transform:scale(1.1);
+}
+
+.Email{
+display:flex;
+margin-top:10px;
+}
+
+.Email input{
+padding:10px;
+border:none;
+outline:none;
+border-radius:6px 0 0 6px;
+width:160px;
+}
+
+.Email button{
+padding:10px 15px;
+border:none;
+background:#e31837;
+color:white;
+font-weight:bold;
+border-radius:0 6px 6px 0;
+cursor:pointer;
+transition:.3s;
+}
+
+.Email button:hover{
+background:#ff2e4d;
+}
+
+.footer-bottom{
+text-align:center;
+padding:15px;
+border-top:1px solid rgba(255,255,255,0.2);
+font-size:20px;
+color:#cbd5e1;
+}
+
+.menu-search{
+
+width:90%;
+padding:10px;
+margin-bottom:15px;
+
+border-radius:9px;
+border:1px solid #ddd;
+
+font-size:17px;
+
+outline:none;
+
+}
+
+.menu-search:focus{
+
+border-color:#0b5ed7;
+
+}
+
+.search-box{
+position:relative;
+margin-bottom:15px;
+}
+
+.search-box input{
+
+width:80%;
+padding:10px 35px 10px 12px;
+
+border-radius:10px;
+border:1px solid #000000;
+
+outline:none;
+transition:0.3s;
+font-size:14px;
+
+}
+
+/* glow effect */
+.search-box input:focus{
+
+border-color:#ff5a3c;
+box-shadow:0 0 8px rgba(255,90,60,0.5);
+
+}
+
+/* clear button */
+.clear-btn{
+
+position:absolute;
+right:35px;
+top:50%;
+transform:translateY(-50%);
+cursor:pointer;
+display:none;
+font-size:14px;
+
+}
+
+/* voice button */
+.voice-btn{
+
+position:absolute;
+right:10px;
+top:50%;
+transform:translateY(-50%);
+cursor:pointer;
+
+}
+
+/* suggestions dropdown */
+.suggestions{
+
+position:absolute;
+width:100%;
+background:white;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+
+max-height:200px;
+overflow:auto;
+
+display:none;
+z-index:1000;
+
+}
+
+.suggestions div{
+
+padding:10px;
+cursor:pointer;
+transition:0.2s;
+
+}
+
+.suggestions div:hover{
+
+background:#ff5a3c;
+color:white;
+
+}
+
+/* category hover animation */
+.category-item{
+
+transition:0.3s;
+
+}
+
+.category-item:hover{
+
+transform:translateX(5px);
+color:#ff5a3c;
+
+}
+
+/* ================= RESPONSIVE FIX ONLY ================= */
+
+/* Tablet */
+@media (max-width: 992px){
+
+.main{
+flex-direction:column;
+}
+
+.sidebar{
+width:100%;
+}
+
+.product-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.footer-container{
+flex-direction:column;
+}
+
+}
+
+
+/* Mobile */
+@media (max-width: 576px){
+
+.navbar{
+flex-direction:column;
+align-items:flex-start;
+gap:10px;
+}
+
+.nav-links{
+flex-wrap:wrap;
+}
+
+.hero h1{
+font-size:22px;
+}
+
+.hero p{
+font-size:14px;
+}
+
+.product-grid{
+grid-template-columns:1fr;
+}
+
+.sidebar{
+width:100%;
+}
+
+.footer-container{
+flex-direction:column;
+padding:20px;
+}
+
+.footer-col h4{
+font-size:18px;
+}
+
+.footer-brand p{
+font-size:16px;
+}
+
+#chatbot-box{
+width:90%;
+right:5%;
+}
+
+.cart-popup{
+right:10px;
+bottom:10px;
+padding:10px 18px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="overlay">
+
+
+<!-- NAVBAR (MODIFIED) -->
+
+<div class="navbar">
+
+<div class="logo">
+<img src="{% static 'main/images/logo.png' %}" class="logo-img">
+<span>CRUSTO</span>
+</div>
+
+
+<div class="nav-links">
+
+<a href="{% url 'cart' %}">
+🛒 Cart (<span id="cart-count">{{cart_count}}</span>)
+</a>
+
+{% if user.is_authenticated %}
+
+<a href="{% url 'orders' %}">Orders</a>
+
+<div class="profile-menu">
+
+{% if user.is_authenticated %}
+
+    {% if user.socialaccount_set.all %}
+    
+        <!-- Google profile image -->
+        <img src="{{ user.socialaccount_set.all.0.extra_data.picture }}"
+             class="nav-profile"
+             onclick="toggleMenu()">
+
+    {% elif user.profile.image %}
+    
+        <!-- Uploaded profile image -->
+        <img src="{{ user.profile.image.url }}"
+             class="nav-profile"
+             onclick="toggleMenu()">
+
+    {% else %}
+    
+        <!-- Default avatar -->
+        <img src="{% static 'main/images/default-user.png' %}"
+             class="nav-profile"
+             onclick="toggleMenu()">
+
+    {% endif %}
+
+{% endif %}
+
+<div class="dropdown" id="dropdown">
+
+<div class="profile-header">
+
+<img src="{% static 'main/images/default-user.png' %}" class="dropdown-avatar">
+
+<div>
+<div class="dropdown-name">
+{{ request.user.username }}
+</div>
+
+<div class="dropdown-email">
+{{ request.user.email }}
+</div>
+</div>
+
+</div>
+
+<div class="dropdown-divider"></div>
+
+<a href="{% url 'profile' %}">
+👤 My Profile
+</a>
+
+<a href="{% url 'orders' %}">
+📦 My Orders
+</a>
+
+<a href="{% url 'logout' %}">
+ Logout
+</a>
+
+</div>
+</div>
+{% else %}
+
+<a href="{% url 'login' %}">Login</a>
+<a href="{% url 'register' %}">Register</a>
+
+{% endif %}
+
+</div>
+
+</div>
+
+
+<!-- HERO -->
+
+<div class="hero">
+
+<h1>Delicious Food Delivered Fast</h1>
+
+<p>Hot pizzas, burgers & combos</p>
+
+<button onclick="document.getElementById('products').scrollIntoView()">
+Order Now
+</button>
+
+</div>
+
+
+<!-- MAIN -->
+
+<div class="main">
+
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<h3>Menu</h3>
+
+<!-- SEARCH BAR -->
+<div class="search-box">
+
+<input type="text"
+       id="menuSearch"
+       placeholder="Search food..."
+       autocomplete="off">
+
+<span class="clear-btn" onclick="clearSearch()">✖</span>
+
+<span class="voice-btn" onclick="startVoice()">🎤</span>
+
+<div id="suggestions" class="suggestions"></div>
+
+</div>
+
+<a href="/" style="text-decoration:none;">
+<div class="category-item">All</div>
+</a>
+
+{% for c in categories %}
+<a href="/?category={{c.id}}" style="text-decoration:none;">
+<div class="category-item">
+{{c.name}}
+</div>
+</a>
+{% endfor %}
+
+</div>
+
+
+<!-- PRODUCTS -->
+
+<div class="products" id="products">
+
+<h2>Popular Items</h2>
+
+<div class="product-grid">
+
+{% for p in products %}
+
+<div class="product-card">
+
+<div class="image-box">
+
+<img src="{{ p.image.url }}">
+
+{% if p.is_veg %}
+<div class="veg-icon"></div>
+{% else %}
+<div class="nonveg-icon"></div>
+{% endif %}
+
+{% if p.discount > 0 %}
+<div class="discount-badge">
+SAVE ₹{{ p.discount }}
+</div>
+{% endif %}
+
+</div>
+
+<h4>{{ p.name }}</h4>
+{% if not p.is_available %}
+<div style="
+background:red;
+color:white;
+padding:4px 8px;
+border-radius:6px;
+font-size:12px;
+display:inline-block;
+margin-top:5px;">
+OUT OF STOCK
+</div>
+{% endif %}
+<div class="price">
+
+<span class="final-price">
+₹{{ p.final_price }}
+</span>
+
+{% if p.discount > 0 %}
+<span class="old-price">
+₹{{ p.price }}
+</span>
+{% endif %}
+
+</div>
+
+{% if p.is_available %}
+
+<button onclick="addToCart({{p.id}})">
+Add to Cart
+</button>
+
+{% else %}
+
+<button style="background:gray;cursor:not-allowed;">
+Out of stock
+</button>
+
+{% endif %}
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</div>
+
+
+<a href="{% url 'cart' %}" class="cart-popup">
+🛒 View Cart
+</a>
+
+
+</div>
+
+
+<div id="cart-popup">
+✅ Added to cart
+</div>
+
+
+<script>
+
+function addToCart(id){
+
+fetch("/add/"+id+"/",{
+method:"GET",
+headers:{
+"X-Requested-With":"XMLHttpRequest"
+}
+})
+.then(response=>response.json())
+.then(data=>{
+
+let cart=document.getElementById("cart-count");
+
+if(cart){
+cart.innerText=data.cart_count;
+}
+
+let popup=document.getElementById("cart-popup");
+
+popup.classList.add("show");
+
+setTimeout(()=>{
+popup.classList.remove("show");
+},1500);
+
+})
+.catch(error=>{
+console.log(error);
+});
+
+}
+
+</script>
+
+<footer class="footer">
+
+<div class="footer-container">
+
+<div class="footer-brand">
+
+<img src="{% static 'main/images/logo.png' %}" class="footer-logo">
+
+<h3>CRUSTO</h3>
+
+<p>Delicious food delivered fast 🍕</p>
+
+</div>
+
+<!-- CONTACT -->
+<div class="footer-col">
+
+<h4>Contact Details</h4>
+
+<p>📍 khammam, India</p>
+<p>📞 +91 9876543210</p>
+<p>✉ support@crusto.com</p>
+
+</div>
+
+
+<!-- PAYMENT -->
+<div class="footer-col">
+
+<h4>Payment Options</h4>
+
+<div class="payments">
+
+<img src="{% static 'main/images/visa.png' %}">
+<img src="{% static 'main/images/mastercard.png' %}">
+<img src="{% static 'main/images/paypal.png' %}">
+<img src="{% static 'main/images/upi.png' %}">
+
+</div>
+
+</div>
+
+
+<!-- Email -->
+<div class="footer-col">
+
+<h4>Email</h4>
+
+<div class="Email">
+
+<input type="email" placeholder="Email address">
+
+<button>Send</button>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="footer-bottom">
+
+© 2026 CRUSTO. All rights reserved.
+
+</div>
+
+</footer>
+
+<script>
+
+function toggleMenu(){
+
+let menu = document.getElementById("dropdown");
+
+if(menu.style.display=="block"){
+
+menu.style.display="none";
+
+}else{
+
+menu.style.display="block";
+
+}
+
+}
+
+</script>
+
+
+<script>
+
+function filterProducts(){
+
+let input =
+document.getElementById("menuSearch").value.toLowerCase();
+
+let cards =
+document.querySelectorAll(".product-card");
+
+cards.forEach(function(card){
+
+let name =
+card.innerText.toLowerCase();
+
+if(name.includes(input))
+card.style.display="block";
+else
+card.style.display="none";
+
+});
+
+}
+
+</script>
+
+<script>
+
+const searchInput = document.getElementById("menuSearch");
+const suggestions = document.getElementById("suggestions");
+const clearBtn = document.querySelector(".clear-btn");
+
+searchInput.addEventListener("input", function(){
+
+let value = this.value.toLowerCase();
+
+clearBtn.style.display = value ? "block" : "none";
+
+let items = document.querySelectorAll(".category-item");
+
+suggestions.innerHTML = "";
+
+if(value === ""){
+suggestions.style.display="none";
+items.forEach(i=>i.style.display="block");
+return;
+}
+
+suggestions.style.display="block";
+
+items.forEach(item=>{
+
+let text = item.innerText.toLowerCase();
+
+if(text.includes(value)){
+
+item.style.display="block";
+
+/* suggestion */
+let div = document.createElement("div");
+div.innerText = item.innerText;
+
+div.onclick=()=>{
+searchInput.value=item.innerText;
+suggestions.style.display="none";
+};
+
+suggestions.appendChild(div);
+
+}else{
+
+item.style.display="none";
+
+}
+
+});
+
+});
+
+/* clear */
+function clearSearch(){
+
+searchInput.value="";
+clearBtn.style.display="none";
+suggestions.style.display="none";
+
+document.querySelectorAll(".category-item")
+.forEach(i=>i.style.display="block");
+
+}
+
+/* voice search */
+function startVoice(){
+
+if(!('webkitSpeechRecognition' in window)){
+alert("Voice search not supported");
+return;
+}
+
+let recognition = new webkitSpeechRecognition();
+
+recognition.onresult = function(event){
+
+searchInput.value =
+event.results[0][0].transcript;
+
+searchInput.dispatchEvent(new Event("input"));
+
+};
+
+recognition.start();
+
+}
+
+</script>
+
+<!-- ========================= -->
+<!-- CRUSTO AI HELP CHATBOT -->
+<!-- ========================= -->
+
+<!-- CHAT BUTTON -->
+<div id="chatbot-button" onclick="toggleChatbot()">
+    🤖
+</div>
+
+
+<!-- CHAT WINDOW -->
+<div id="chatbot-box">
+
+    <div id="chatbot-header">
+        CRUSTO Help Center
+        <span onclick="toggleChatbot()">✖</span>
+    </div>
+
+    <div id="chatbot-messages">
+
+        <div class="bot-msg">
+            👋 Hi! Welcome to CRUSTO.<br>
+            How can I help you?
+        </div>
+
+    </div>
+
+    <div id="chatbot-input-area">
+
+        <input
+            type="text"
+            id="chatbot-input"
+            placeholder="Type your message..."
+            onkeypress="handleKey(event)"
+        >
+
+        <button onclick="sendMessage()">Send</button>
+
+    </div>
+
+</div>
+
+
+
+<style>
+
+/* BUTTON */
+
+#chatbot-button{
+
+position:fixed;
+
+bottom:90px;
+right:25px;
+
+width:55px;
+height:55px;
+
+border-radius:50%;
+
+background:linear-gradient(135deg,#0b2a5b,#1e4fa3);
+
+color:white;
+
+font-size:26px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+cursor:pointer;
+
+box-shadow:0 8px 20px rgba(0,0,0,.25);
+
+transition:.3s;
+
+z-index:999;
+
+animation:pulse 2s infinite;
+
+}
+
+@keyframes pulse{
+
+0%{box-shadow:0 0 0 0 rgba(30,79,163,.6);}
+70%{box-shadow:0 0 0 12px rgba(30,79,163,0);}
+100%{box-shadow:0 0 0 0 rgba(30,79,163,0);}
+
+}
+
+
+#chatbot-button:hover{
+
+transform:scale(1.1);
+
+}
+
+
+/* CHAT BOX */
+
+#chatbot-box{
+
+display:none;
+
+position:fixed;
+
+bottom:160px;
+right:25px;
+
+width:320px;
+height:420px;
+
+background:white;
+
+border-radius:15px;
+
+box-shadow:0 10px 30px rgba(0,0,0,.25);
+
+overflow:hidden;
+
+font-family:Segoe UI;
+
+z-index:999;
+
+}
+
+
+/* HEADER */
+
+#chatbot-header{
+
+background:#0b2a5b;
+
+color:white;
+
+padding:12px;
+
+font-weight:bold;
+
+display:flex;
+justify-content:space-between;
+
+}
+
+
+/* MESSAGES */
+
+#chatbot-messages{
+
+height:300px;
+
+overflow-y:auto;
+
+padding:10px;
+
+background:#f4f6f8;
+
+}
+
+
+.bot-msg{
+
+background:#e3ecff;
+
+padding:8px;
+
+margin:5px;
+
+border-radius:8px;
+
+}
+
+
+.user-msg{
+
+background:#d1ffd6;
+
+padding:8px;
+
+margin:5px;
+
+border-radius:8px;
+
+text-align:right;
+
+}
+
+
+/* INPUT */
+
+#chatbot-input-area{
+
+display:flex;
+
+border-top:1px solid #ddd;
+
+}
+
+#chatbot-input{
+
+flex:1;
+
+padding:10px;
+
+border:none;
+
+outline:none;
+
+}
+
+#chatbot-input-area button{
+
+background:#e31837;
+
+color:white;
+
+border:none;
+
+padding:10px 15px;
+
+cursor:pointer;
+
+}
+
+</style>
+
+
+
+<script>
+
+
+function toggleChatbot(){
+
+var box=document.getElementById("chatbot-box");
+
+if(box.style.display=="none"||box.style.display==""){
+
+box.style.display="block";
+
+}else{
+
+box.style.display="none";
+
+}
+
+}
+
+
+
+function handleKey(e){
+
+if(e.key==="Enter"){
+
+sendMessage();
+
+}
+
+}
+
+
+
+function sendMessage(){
+
+var input=document.getElementById("chatbot-input");
+
+var msg=input.value.trim();
+
+if(msg==="") return;
+
+
+addUserMessage(msg);
+
+input.value="";
+
+
+setTimeout(function(){
+
+botReply(msg);
+
+},600);
+
+}
+
+
+
+function addUserMessage(msg){
+
+var div=document.createElement("div");
+
+div.className="user-msg";
+
+div.innerText=msg;
+
+document.getElementById("chatbot-messages").appendChild(div);
+
+scrollBottom();
+
+}
+
+
+
+function addBotMessage(msg){
+
+var div=document.createElement("div");
+
+div.className="bot-msg";
+
+div.innerText=msg;
+
+document.getElementById("chatbot-messages").appendChild(div);
+
+scrollBottom();
+
+}
+
+
+
+function botReply(msg){
+
+msg=msg.toLowerCase();
+
+if(msg.includes("order")){
+
+addBotMessage("📦 You can view orders in My Orders section.");
+
+}
+
+else if(msg.includes("payment")){
+
+addBotMessage("💳 We support UPI, Card, and COD.");
+
+}
+
+else if(msg.includes("cart")){
+
+addBotMessage("🛒 Click View Cart button to see your cart.");
+
+}
+
+else if(msg.includes("hello")||msg.includes("hi")){
+
+addBotMessage("😊 Hello! How can I help you?");
+
+}
+
+else{
+
+addBotMessage("🤖 Thanks! Our support will contact you.");
+
+}
+
+}
+
+
+
+function scrollBottom(){
+
+var box=document.getElementById("chatbot-messages");
+
+box.scrollTop=box.scrollHeight;
+
+}
+
+
+</script>
+
+</body>
+</html>

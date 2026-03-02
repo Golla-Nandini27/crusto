@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Cart • CRUSTO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body{
+            background:#eef1f5;
+            font-family:Segoe UI, Arial;
+        }
+
+        .navbar-custom{
+            background: linear-gradient(90deg,#0b2a5b,#163d7a);
+        }
+
+        .cart-card{
+            border-radius:14px;
+            box-shadow:0 6px 18px rgba(0,0,0,.08);
+            transition:.3s;
+        }
+
+        .cart-card:hover{
+            transform:translateY(-3px);
+        }
+
+        .price{
+            color:#e31837;
+            font-weight:bold;
+        }
+
+        .qty-btn{
+            width:32px;
+            height:32px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            border-radius:6px;
+            color:white;
+            font-weight:bold;
+            text-decoration:none;
+        }
+
+        .plus{ background:#22c55e; }
+        .minus{ background:#ef4444; }
+
+        .checkout{
+            background:linear-gradient(90deg,#ff3b3b,#e31837);
+            border:none;
+        }
+
+        .checkout:hover{
+            transform:scale(1.02);
+        }
+
+        .summary-card{
+            border-radius:14px;
+            box-shadow:0 6px 18px rgba(0,0,0,.08);
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark navbar-custom px-4">
+    <div class="d-flex align-items-center gap-2">
+        <img src="{% static 'main/images/logo.png' %}" height="40" class="rounded-circle">
+        <span class="fs-5 fw-bold text-white">CRUSTO</span>
+    </div>
+</nav>
+
+<div class="container py-4">
+
+    <div class="row g-4">
+
+        <!-- LEFT CART SECTION -->
+        <div class="col-lg-8 col-12">
+
+            <h4 class="fw-bold mb-3 text-primary">😋 Your Cart</h4>
+
+            {% for item in items %}
+
+            <div class="card cart-card p-3 mb-3">
+                <div class="row align-items-center">
+
+                    <!-- Product Info -->
+                    <div class="col-md-6 col-12 d-flex gap-3 align-items-center">
+                        <img src="{{item.product.image.url}}" width="80" height="80"
+                             class="rounded object-fit-cover">
+
+                        <div>
+                            <div class="fw-semibold fs-6">
+                                {{item.product.name}}
+                            </div>
+                            <div class="price">
+                                ₹{{item.product.final_price}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quantity & Delete -->
+                    <div class="col-md-6 col-12 d-flex justify-content-md-end justify-content-start align-items-center gap-3 mt-3 mt-md-0">
+
+                        <div class="d-flex align-items-center gap-2">
+
+                            <a href="{% url 'decrease' item.id %}" class="qty-btn minus">−</a>
+
+                            <div class="fw-bold">
+                                {{item.quantity}}
+                            </div>
+
+                            <a href="{% url 'increase' item.id %}" class="qty-btn plus">+</a>
+
+                        </div>
+
+                        <a href="{% url 'remove_cart' item.id %}" class="text-muted fs-5 text-decoration-none">
+                            🗑
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+
+            {% empty %}
+                <h5>Your cart is empty</h5>
+            {% endfor %}
+
+        </div>
+
+        <!-- RIGHT SUMMARY -->
+        <div class="col-lg-4 col-12">
+
+            <div class="card summary-card p-4">
+
+                <h5 class="fw-bold text-primary">Order Summary</h5>
+                <hr>
+
+                <div class="fs-4 fw-bold my-3">
+                    Total ₹{{total}}
+                </div>
+
+                {% if total > 0 %}
+                    <a href="{% url 'checkout' %}">
+                        <button class="btn checkout w-100 text-white fw-bold py-2">
+                            Proceed to Payment
+                        </button>
+                    </a>
+                {% else %}
+                    <button class="btn btn-secondary w-100 py-2">
+                        Cart Empty
+                    </button>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

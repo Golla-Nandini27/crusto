@@ -1,0 +1,229 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Payment Success • CRUSTO</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+
+margin:0;
+height:100vh;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-family:Segoe UI;
+
+background:linear-gradient(135deg,#0b2a5b,#1e4c8f);
+
+}
+
+
+/* card */
+
+.success-card{
+
+background:white;
+padding:40px;
+border-radius:18px;
+width:360px;
+text-align:center;
+
+box-shadow:0 20px 50px rgba(0,0,0,.35);
+
+animation:pop .4s ease;
+
+}
+
+@keyframes pop{
+
+0%{transform:scale(.7);opacity:0}
+100%{transform:scale(1);opacity:1}
+
+}
+
+
+/* check circle */
+
+.check{
+
+width:80px;
+height:80px;
+
+background:#22c55e;
+
+border-radius:50%;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+margin:auto;
+margin-bottom:15px;
+
+font-size:40px;
+color:white;
+
+animation:bounce .6s;
+
+}
+
+@keyframes bounce{
+
+0%{transform:scale(0)}
+80%{transform:scale(1.2)}
+100%{transform:scale(1)}
+
+}
+
+
+.title{
+
+font-size:22px;
+font-weight:700;
+color:#22c55e;
+
+margin-bottom:10px;
+
+}
+
+.info{
+
+color:#555;
+margin:6px;
+
+}
+
+
+/* button */
+
+.btn{
+
+margin-top:20px;
+
+background:#0b2a5b;
+
+color:white;
+
+padding:12px;
+border:none;
+border-radius:10px;
+
+cursor:pointer;
+
+font-weight:600;
+
+width:100%;
+
+transition:.3s;
+
+}
+
+.btn:hover{
+
+background:#081f44;
+
+}
+
+/* ================= RESPONSIVE FIX ONLY (NO DESIGN CHANGE) ================= */
+
+/* Tablet */
+@media (max-width: 992px){
+
+.success-card{
+width:340px;
+padding:35px;
+}
+
+.check{
+width:70px;
+height:70px;
+font-size:34px;
+}
+
+}
+
+
+/* Mobile */
+@media (max-width: 576px){
+
+body{
+padding:15px;
+height:auto;
+min-height:100vh;
+}
+
+.success-card{
+width:100%;
+max-width:360px;
+padding:28px;
+border-radius:16px;
+}
+
+.check{
+width:65px;
+height:65px;
+font-size:30px;
+margin-bottom:12px;
+}
+
+.title{
+font-size:20px;
+}
+
+.info{
+font-size:14px;
+}
+
+.btn{
+padding:11px;
+font-size:15px;
+}
+
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="success-card">
+
+<div class="check">
+✔
+</div>
+
+<div class="title">
+Payment Successful
+</div>
+
+<div class="info">
+Order ID: {{order.id}}
+</div>
+
+<div class="info">
+Amount: ₹{{order.total}}
+</div>
+
+<div class="info">
+Status: Preparing
+</div>
+
+<a href="/">
+
+<button class="btn">
+Continue Shopping
+</button>
+
+</a>
+
+</div>
+
+</body>
+</html>
