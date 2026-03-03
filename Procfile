@@ -1,1 +1,1 @@
-web: gunicorn crusto.wsgi
+web: gunicorn crusto.wsgi:application
