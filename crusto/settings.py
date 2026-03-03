@@ -154,11 +154,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-if os.environ.get("CREATE_SUPERUSER") == "True":
-    username = os.environ.get("DJANGO_SUPERUSER_USERNAME")
-    email = os.environ.get("DJANGO_SUPERUSER_EMAIL")
-    password = os.environ.get("DJANGO_SUPERUSER_PASSWORD")
-
-    if username and email and password:
-        if not User.objects.filter(username=username).exists():
-            User.objects.create_superuser(username, email, password)
