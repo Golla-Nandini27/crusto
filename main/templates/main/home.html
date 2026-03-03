@@ -1118,7 +1118,7 @@ Order Now
 
 <div class="image-box">
 
-<img src="{% static 'main/images/products/' %}{{ p.image }}">
+<img src="{% static 'main/images/' %}{{ p.image }}" alt="{{ p.name }}">
 {% if p.is_veg %}
 <div class="veg-icon"></div>
 {% else %}
