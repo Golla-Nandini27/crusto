@@ -80,7 +80,7 @@ height:auto;
 <div class="product-card">
 
 <!-- FIXED IMAGE -->
-<img src="{% static 'main/images/products/' %}{{ p.image }}">
+{% static 'main/images/' %}{{ p.image }}
 <h3>{{p.name}}</h3>
 <p>₹{{p.price}}</p>
 
