@@ -16,7 +16,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["crusto.onrender.com"]
+ALLOWED_HOSTS = ["crusto-gtpb.onrender.com"]
 
 
 # Application definition
