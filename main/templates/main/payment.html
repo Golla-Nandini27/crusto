@@ -2,13 +2,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <title>Razorpay Secure Payment • CRUSTO</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<style>
 
+<style>
 body{
 margin:0;
 font-family:Segoe UI;
@@ -20,7 +18,6 @@ height:100vh;
 }
 
 /* MAIN CARD */
-
 .card{
 background:white;
 padding:30px;
@@ -37,11 +34,8 @@ font-weight:bold;
 margin-bottom:20px;
 }
 
-
 /* BUTTON */
-
 .pay-btn{
-
 width:100%;
 padding:14px;
 margin:8px 0;
@@ -51,48 +45,33 @@ font-size:16px;
 cursor:pointer;
 color:white;
 font-weight:bold;
-
 }
 
 .upi{ background:#5f259f; }
-
 .cardbtn{ background:#0a66c2; }
-
 .cod{ background:#28a745; }
 
-
-
 /* POPUP */
-
 .popup{
-
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
-
 background:rgba(0,0,0,.65);
-
 display:none;
 justify-content:center;
 align-items:center;
-
 }
 
-
-
 /* POPUP BOX */
-
 .popup-box{
-
 background:white;
 padding:25px;
 border-radius:12px;
 width:350px;
 text-align:center;
 animation:zoom .3s;
-
 }
 
 @keyframes zoom{
@@ -100,27 +79,19 @@ from{transform:scale(.7);opacity:0;}
 to{transform:scale(1);opacity:1;}
 }
 
-
 /* LOGO */
-
 .rzp-logo{
-
 width:130px;
 margin-bottom:10px;
-
 }
 
-
 /* QR */
-
 .qr{
 width:180px;
 margin:10px auto;
 }
 
-
 /* BANK LIST */
-
 .bank{
 border:1px solid #ddd;
 padding:10px;
@@ -133,22 +104,15 @@ border-radius:6px;
 background:#f5f7fa;
 }
 
-
 /* LOADER */
-
 .loader{
-
 border:5px solid #eee;
 border-top:5px solid #3399ff;
 border-radius:50%;
-
 width:60px;
 height:60px;
-
 margin:auto;
-
 animation:spin 1s linear infinite;
-
 }
 
 @keyframes spin{
@@ -156,278 +120,141 @@ animation:spin 1s linear infinite;
 100%{transform:rotate(360deg);}
 }
 
-
-
 /* SUCCESS */
-
 .success{
-
 font-size:50px;
 color:green;
-
 }
-
 
 /* TXN */
-
 .txn{
-
 font-weight:bold;
 margin-top:10px;
-
 }
 
-/* ================= RESPONSIVE FIX ONLY (NO DESIGN CHANGE) ================= */
+/* FIXED popup button style */
+.popup-box button{
+background:#e31837;
+color:white;
+border:none;
+padding:10px 15px;
+border-radius:6px;
+cursor:pointer;
+}
+
+/* ================= RESPONSIVE FIX ONLY ================= */
 
 /* Tablet */
 @media (max-width: 992px){
-
-.card{
-width:360px;
-padding:25px;
+.card{ width:360px; padding:25px; }
+.popup-box{ width:340px; }
+.qr{ width:170px; }
 }
-
-.popup-box{
-width:340px;
-}
-
-.qr{
-width:170px;
-}
-
-}
-
 
 /* Mobile */
 @media (max-width: 576px){
-
-body{
-padding:15px;
-height:auto;
-min-height:100vh;
+body{ padding:15px; height:auto; min-height:100vh; }
+.card{ width:100%; max-width:380px; padding:22px; border-radius:12px; }
+.total{ font-size:24px; }
+.pay-btn{ padding:12px; font-size:15px; }
+.popup-box{ width:90%; max-width:350px; padding:20px; }
+.qr{ width:160px; }
+.rzp-logo{ width:110px; }
+.loader{ width:50px; height:50px; border-width:4px; }
 }
-
-.card{
-width:100%;
-max-width:380px;
-padding:22px;
-border-radius:12px;
-}
-
-.total{
-font-size:24px;
-}
-
-.pay-btn{
-padding:12px;
-font-size:15px;
-}
-
-.popup-box{
-width:90%;
-max-width:350px;
-padding:20px;
-}
-
-.qr{
-width:160px;
-}
-
-.rzp-logo{
-width:110px;
-}
-
-.loader{
-width:50px;
-height:50px;
-border-width:4px;
-}
-
-}
-
 </style>
-
 </head>
+
 <body>
 
-
 <div class="card">
-
 <h2>Secure Payment</h2>
 
 <div class="total">
 ₹{{total}}
 </div>
 
-<button class="pay-btn upi"
-onclick="openUPI()">
+<button class="pay-btn upi" onclick="openUPI()">
 UPI
 </button>
 
-<button class="pay-btn cardbtn"
-onclick="openCard()">
+<button class="pay-btn cardbtn" onclick="openCard()">
 Card / Netbanking
 </button>
 
-<button class="pay-btn cod"
-onclick="payNow('COD')">
+<button class="pay-btn cod" onclick="payNow('COD')">
 Cash on Delivery
 </button>
 
 </div>
 
-
-
 <div class="popup" id="popup">
-
-<div class="popup-box" id="box">
-
+<div class="popup-box" id="box"></div>
 </div>
 
-</div>
-
-
-
-<form id="form"
-method="POST"
-action="{% url 'place_order' %}">
-
+<form id="form" method="POST" action="{% url 'place_order' %}">
 {% csrf_token %}
-
-<input type="hidden"
-name="method"
-id="method">
-
+<input type="hidden" name="method" id="method">
 </form>
 
-
-
 <script>
-
-
 function openUPI(){
-
 document.getElementById("popup").style.display="flex";
-
 document.getElementById("box").innerHTML=`
-
 <img src="{% static 'main/images/razorpay.png' %}" class="rzp-logo">
-
 <h3>Scan QR to Pay</h3>
-
 <img src="{% static 'main/images/qr.png' %}" class="qr">
-
-<div class="bank"
-onclick="payNow('GooglePay')">
-Google Pay
-</div>
-
-<div class="bank"
-onclick="payNow('PhonePe')">
-PhonePe
-</div>
-
-<div class="bank"
-onclick="payNow('Paytm')">
-Paytm
-</div>
-
+<div class="bank" onclick="payNow('GooglePay')">Google Pay</div>
+<div class="bank" onclick="payNow('PhonePe')">PhonePe</div>
+<div class="bank" onclick="payNow('Paytm')">Paytm</div>
 `;
-
 }
-
-
 
 function openCard(){
-
 document.getElementById("popup").style.display="flex";
-
 document.getElementById("box").innerHTML=`
-
 <img src="{% static 'main/images/razorpay.png' %}" class="rzp-logo">
-
 <h3>Select Bank</h3>
-
-<div class="bank"
-onclick="payNow('HDFC')">
-HDFC Bank
-</div>
-
-<div class="bank"
-onclick="payNow('SBI')">
-State Bank of India
-</div>
-
-<div class="bank"
-onclick="payNow('ICICI')">
-ICICI Bank
-</div>
-
+<div class="bank" onclick="payNow('HDFC')">HDFC Bank</div>
+<div class="bank" onclick="payNow('SBI')">State Bank of India</div>
+<div class="bank" onclick="payNow('ICICI')">ICICI Bank</div>
 <br>
-
-<input placeholder="Card Number"><br><br>
-
-<input placeholder="Expiry"><br><br>
-
-<input placeholder="CVV"><br><br>
-
-<button onclick="payNow('Card')">
+<input placeholder="Card Number" class="form-control mb-2">
+<input placeholder="Expiry" class="form-control mb-2">
+<input placeholder="CVV" class="form-control mb-2">
+<button type="button" onclick="payNow('Card')">
 Pay ₹{{total}}
 </button>
-
 `;
-
 }
 
-
-
 function payNow(method){
-
 document.getElementById("box").innerHTML=`
-
 <img src="{% static 'main/images/razorpay.png' %}" class="rzp-logo">
-
 <div class="loader"></div>
-
 <p>Processing Payment...</p>
-
 `;
 
 setTimeout(()=>{
-
 let txn="TXN"+Math.floor(Math.random()*999999999);
 
 document.getElementById("box").innerHTML=`
-
-<div class="success">
-✔
-</div>
-
+<div class="success">✔</div>
 <h3>Payment Successful</h3>
-
 <div class="txn">
-Transaction ID:<br>
-${txn}
+Transaction ID:<br>${txn}
 </div>
-
 `;
 
 document.getElementById("method").value=method;
 
 setTimeout(()=>{
-
 document.getElementById("form").submit();
-
 },2000);
 
-
 },2000);
-
 }
-
-
 </script>
-
 
 </body>
 </html>

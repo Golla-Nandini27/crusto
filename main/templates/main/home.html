@@ -939,8 +939,7 @@ padding:10px 18px;
         </div>
 
         <!-- LOGO -->
-        <img src="{% static 'main/images/logo.png' %}" class="intro-logo">
-
+        <img src="{% static 'main/images/logo.png' %}" class="logo-img">
         <!-- LETTER BY LETTER -->
         <h1 class="intro-text">
             <span>C</span>
@@ -987,35 +986,26 @@ padding:10px 18px;
 {% if user.is_authenticated %}
 
     {% if user.socialaccount_set.all %}
-    
-        <!-- Google profile image -->
-        <img src="{{ user.socialaccount_set.all.0.extra_data.picture }}"
-             class="nav-profile"
-             onclick="toggleMenu()">
-
-    {% elif user.profile.image %}
-    
-        <!-- Uploaded profile image -->
-        <img src="{{ user.profile.image.url }}"
-             class="nav-profile"
-             onclick="toggleMenu()">
-
-    {% else %}
-    
-        <!-- Default avatar -->
-        <img src="{% static 'main/images/default-user.png' %}"
-             class="nav-profile"
-             onclick="toggleMenu()">
-
-    {% endif %}
+    <img src="{{ user.socialaccount_set.all.0.extra_data.picture }}"
+    class="nav-profile"
+    onclick="toggleMenu()">
+{% elif user.profile.image %}
+<img src="{% static 'main/images/profiles/' %}{{ user.profile.image }}"
+     class="nav-profile"
+     onclick="toggleMenu()">
+{% else %}
+<img src="{% static 'main/images/default-user.png' %}"
+     class="nav-profile"
+     onclick="toggleMenu()">
+{% endif %}
 
 {% endif %}
 
 <div class="dropdown" id="dropdown">
-
 <div class="profile-header">
 
-<img src="{% static 'main/images/default-user.png' %}" class="dropdown-avatar">
+<img src="{% static 'main/images/default-user.png' %}" 
+     class="dropdown-avatar">
 
 <div>
 <div class="dropdown-name">
@@ -1128,8 +1118,7 @@ Order Now
 
 <div class="image-box">
 
-<img src="{{ p.image.url }}">
-
+<img src="{% static 'main/images/products/' %}{{ p.image }}">
 {% if p.is_veg %}
 <div class="veg-icon"></div>
 {% else %}
@@ -1251,7 +1240,6 @@ console.log(error);
 <div class="footer-brand">
 
 <img src="{% static 'main/images/logo.png' %}" class="footer-logo">
-
 <h3>CRUSTO</h3>
 
 <p>Delicious food delivered fast 🍕</p>

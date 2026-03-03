@@ -8,10 +8,15 @@ from django.dispatch import receiver
 # ===============================
 # CATEGORY
 # ===============================
-
 class Category(models.Model):
-
     name = models.CharField(max_length=100)
+
+    # Static image filename (example: pizza.png)
+    image = models.CharField(
+        max_length=200,
+        blank=True,
+        default=""
+    )
 
     def __str__(self):
         return self.name
@@ -20,9 +25,7 @@ class Category(models.Model):
 # ===============================
 # PRODUCT
 # ===============================
-
 class Product(models.Model):
-
     name = models.CharField(max_length=200)
 
     category = models.ForeignKey(
@@ -30,8 +33,9 @@ class Product(models.Model):
         on_delete=models.CASCADE
     )
 
-    image = models.ImageField(
-        upload_to="products/"
+    # Static image filename only (example: burger.webp)
+    image = models.CharField(
+        max_length=200
     )
 
     price = models.DecimalField(
@@ -67,9 +71,7 @@ class Product(models.Model):
 # ===============================
 # CART
 # ===============================
-
 class Cart(models.Model):
-
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE
@@ -94,16 +96,12 @@ class Cart(models.Model):
 # ===============================
 # ORDER
 # ===============================
-
 class Order(models.Model):
-
     STATUS_CHOICES = (
-
         ("Preparing", "Preparing"),
         ("Out for delivery", "Out for delivery"),
         ("Delivered", "Delivered"),
         ("Cancelled", "Cancelled"),
-
     )
 
     user = models.ForeignKey(
@@ -130,9 +128,7 @@ class Order(models.Model):
 # ===============================
 # ORDER ITEMS
 # ===============================
-
 class OrderItem(models.Model):
-
     order = models.ForeignKey(
         Order,
         on_delete=models.CASCADE,
@@ -145,7 +141,6 @@ class OrderItem(models.Model):
     )
 
     quantity = models.IntegerField()
-
     price = models.FloatField()
 
     def __str__(self):
@@ -155,7 +150,6 @@ class OrderItem(models.Model):
 # ===============================
 # TRANSACTION ID GENERATOR
 # ===============================
-
 def generate_transaction_id():
     return str(uuid.uuid4())[:12]
 
@@ -163,16 +157,12 @@ def generate_transaction_id():
 # ===============================
 # PAYMENT
 # ===============================
-
 class Payment(models.Model):
-
     PAYMENT_METHODS = (
-
         ("UPI", "UPI"),
         ("CARD", "Card"),
         ("NETBANKING", "Net Banking"),
         ("COD", "Cash on Delivery"),
-
     )
 
     user = models.ForeignKey(
@@ -216,17 +206,16 @@ class Payment(models.Model):
 # ===============================
 # USER PROFILE
 # ===============================
-
 class Profile(models.Model):
-
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE
     )
 
-    image = models.ImageField(
-        upload_to="profiles/",
-        default="profiles/default.png"
+    # Static image filename only
+    image = models.CharField(
+        max_length=200,
+        default="default-user.png"
     )
 
     def __str__(self):
@@ -236,16 +225,13 @@ class Profile(models.Model):
 # ===============================
 # AUTO CREATE PROFILE
 # ===============================
-
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
-
     if created:
         Profile.objects.create(user=instance)
 
 
 @receiver(post_save, sender=User)
 def save_profile(sender, instance, **kwargs):
-
     if hasattr(instance, "profile"):
         instance.profile.save()

@@ -7,7 +7,6 @@
 <title>Track Your Order • CRUSTO</title>
 
 <style>
-
 body{
 font-family:Segoe UI;
 background:#f4f6f8;
@@ -27,9 +26,7 @@ border-radius:12px;
 box-shadow:0 4px 15px rgba(0,0,0,0.1);
 }
 
-
 /* TRACK BAR */
-
 .track-bar{
 position:relative;
 margin-top:30px;
@@ -38,10 +35,8 @@ background:#ddd;
 border-radius:5px;
 }
 
-
-/* PROGRESS */
-
-.progress{
+/* PROGRESS BAR (renamed to avoid bootstrap conflict) */
+.progress-bar-custom{
 position:absolute;
 height:6px;
 background:#28a745;
@@ -49,9 +44,12 @@ border-radius:5px;
 transition:width 1s ease;
 }
 
+/* STATUS WIDTHS */
+.Preparing{ width:50%; }
+.Out\ for\ delivery{ width:75%; }
+.Delivered{ width:100%; }
 
 /* STEPS */
-
 .steps{
 display:flex;
 justify-content:space-between;
@@ -59,88 +57,59 @@ margin-top:15px;
 font-size:14px;
 }
 
-
 /* TRUCK */
-
 .truck{
-
 position:absolute;
 top:-20px;
 font-size:24px;
 transition:left 1s ease;
-
 }
 
-
-
-/* STATUS COLORS */
-
-.placed{ width:25%; }
-.preparing{ width:50%; }
-.out_for_delivery{ width:75%; }
-.delivered{ width:100%; }
-
-
-/* ================= RESPONSIVE FIX ONLY (NO DESIGN CHANGE) ================= */
+/* ================= RESPONSIVE FIX ONLY ================= */
 
 /* Tablet */
 @media (max-width: 992px){
-
 .container{
 max-width:100%;
 padding:10px;
 }
-
 .order-card{
 padding:18px;
 }
-
 .steps{
 font-size:13px;
 }
-
 .truck{
 font-size:22px;
 }
-
 }
-
 
 /* Mobile */
 @media (max-width: 576px){
-
 body{
 padding:10px;
 }
-
 h1{
 font-size:22px;
 }
-
 .order-card{
 padding:15px;
 border-radius:10px;
 }
-
 .steps{
 font-size:12px;
 flex-wrap:wrap;
 gap:5px;
 }
-
 .track-bar{
 margin-top:25px;
 }
-
 .truck{
 font-size:20px;
 top:-18px;
 }
-
 }
-
 </style>
-
 </head>
 
 <body>
@@ -154,7 +123,6 @@ top:-18px;
 <div class="order-card">
 
 <h3>Order #{{order.id}}</h3>
-
 <p>Total ₹{{order.total}}</p>
 
 <p>
@@ -162,18 +130,22 @@ Status:
 <strong>{{order.get_status_display}}</strong>
 </p>
 
-
 <div class="track-bar">
 
-<div class="progress {{order.status}}"></div>
+<div class="progress-bar-custom
+{% if order.status == 'Preparing' %} Preparing
+{% elif order.status == 'Out for delivery' %} Out for delivery
+{% elif order.status == 'Delivered' %} Delivered
+{% endif %}
+"></div>
 
 <div class="truck"
 style="
 left:
-{% if order.status == 'placed' %} 20%;
-{% elif order.status == 'preparing' %} 45%;
-{% elif order.status == 'out_for_delivery' %} 70%;
-{% elif order.status == 'delivered' %} 92%;
+{% if order.status == 'Preparing' %} 45%;
+{% elif order.status == 'Out for delivery' %} 70%;
+{% elif order.status == 'Delivered' %} 92%;
+{% else %} 20%;
 {% endif %}
 ">
 🚚
@@ -181,16 +153,12 @@ left:
 
 </div>
 
-
 <div class="steps">
-
 <span>Placed</span>
 <span>Preparing</span>
 <span>Out</span>
 <span>Delivered</span>
-
 </div>
-
 
 <p style="margin-top:10px;color:gray;">
 {{order.created_at}}

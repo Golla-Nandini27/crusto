@@ -2,18 +2,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <title>Categories • CRUSTO</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Bootstrap (added only for responsiveness) -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
-
-/* YOUR ORIGINAL DESIGN (example basic layout if not already present) */
-
+/* YOUR ORIGINAL DESIGN */
 .section{
 padding:20px;
 }
@@ -33,6 +29,7 @@ text-align:center;
 width:200px;
 }
 
+/* FIXED IMAGE STYLE (was wrong selector before) */
 .category-card img{
 width:100%;
 height:150px;
@@ -40,70 +37,53 @@ object-fit:cover;
 border-radius:8px;
 }
 
-
 /* ================= RESPONSIVE FIX ONLY ================= */
-/* No design change, only adjusts width on small devices */
 
 /* Tablet */
 @media (max-width: 992px){
-
 .category-container{
 flex-wrap:wrap;
 justify-content:center;
 }
-
 .category-card{
 width:45%;
 }
-
 }
-
 
 /* Mobile */
 @media (max-width: 576px){
-
 .category-container{
 flex-direction:column;
 align-items:center;
 }
-
 .category-card{
 width:90%;
 max-width:320px;
 }
-
 .category-card img{
 width:100%;
 height:auto;
 }
-
 }
-
 </style>
-
 </head>
+
 <body>
 
-
-
 <div class="section">
-
 <h2>Categories</h2>
 
 <div class="category-container">
-
 {% for c in categories %}
-
 <div class="category-card">
 
-<img src="{{c.image.url}}">
+<!-- FIXED IMAGE -->
+<img src="{% static 'main/images/' %}{{ c.image }}" alt="{{ c.name }}">
 
 <p>{{c.name}}</p>
 
 </div>
-
 {% endfor %}
-
 </div>
 
 </div>
