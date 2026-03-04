@@ -712,9 +712,15 @@ color:#ff5a3c;
 
 /* ================= RESPONSIVE FIX ONLY ================= */
 
+/* Desktop */
+.product-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+}
+
 /* Tablet */
 @media (max-width: 992px){
-
 .main{
 flex-direction:column;
 }
@@ -730,9 +736,7 @@ grid-template-columns:repeat(2,1fr);
 .footer-container{
 flex-direction:column;
 }
-
 }
-
 
 /* Mobile */
 @media (max-width: 576px){
@@ -755,8 +759,6 @@ font-size:22px;
 font-size:14px;
 }
 
-@media (max-width: 576px){
-
 .product-grid{
 grid-template-columns:repeat(2,1fr);
 gap:10px;
@@ -766,13 +768,10 @@ gap:10px;
 padding:8px;
 }
 
-.image-box img{
+.image-box{
 height:110px;
 }
 
-}
-.sidebar{
-width:100%;
 }
 
 .footer-container{
