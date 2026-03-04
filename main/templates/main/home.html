@@ -755,10 +755,22 @@ font-size:22px;
 font-size:14px;
 }
 
+@media (max-width: 576px){
+
 .product-grid{
-grid-template-columns:1fr;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
 }
 
+.product-card{
+padding:8px;
+}
+
+.image-box img{
+height:110px;
+}
+
+}
 .sidebar{
 width:100%;
 }
