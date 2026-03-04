@@ -911,6 +911,26 @@ padding:10px 18px;
     100%{ transform: scale(1.3); opacity:0; }
 }
 
+.view-cart-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#e31837;
+color:white;
+padding:14px 22px;
+border-radius:30px;
+text-decoration:none;
+font-weight:600;
+box-shadow:0 6px 15px rgba(0,0,0,0.3);
+z-index:1000;
+transition:0.3s;
+}
+
+.view-cart-btn:hover{
+background:#c4122f;
+transform:scale(1.05);
+}
+
 </style>
 
 </head>
@@ -1193,10 +1213,11 @@ Out of stock
 </div>
 
 
-<a href="{% url 'cart' %}" class="view-cart">
-    View Cart
+{% if cart_count > 0 %}
+<a href="{% url 'cart' %}" class="view-cart-btn">
+🛒 View Cart
 </a>
-
+{% endif %}
 
 </div>
 
