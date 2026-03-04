@@ -299,14 +299,19 @@ color:white;
 
 /* ===== PRODUCTS ===== */
 
-.products{
-flex:1;
-}
+
+@media (max-width: 576px){
 
 .product-grid{
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+}
+
+}
+.product-grid{
 display:grid;
-grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-gap:20px;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
 }
 
 .product-card{
