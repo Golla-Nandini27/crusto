@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from .models import Profile
-
+from .models import Subscriber
 
 # =========================
 # HOME PAGE
@@ -358,3 +358,9 @@ def profile(request):
 def remove_cart(request,id):
     Cart.objects.filter(id=id).delete()
     return redirect("cart")
+
+def subscribe(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+        Subscriber.objects.create(email=email)
+        return redirect("/")

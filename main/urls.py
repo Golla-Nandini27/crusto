@@ -27,5 +27,6 @@ urlpatterns = [
     path("process-payment/", views.process_payment, name="process_payment"),
     path("profile/", views.profile, name="profile"),
     path("remove/<int:id>/",views.remove_cart,name="remove_cart"),
+    path("subscribe/", views.subscribe, name="subscribe"),
 
 ]

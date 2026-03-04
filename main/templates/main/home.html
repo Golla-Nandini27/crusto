@@ -936,6 +936,71 @@ background:#c4122f;
 transform:scale(1.05);
 }
 
+.subscribe-section{
+display:flex;
+justify-content:center;
+align-items:center;
+padding:60px 20px;
+}
+
+.subscribe-box{
+background:linear-gradient(135deg,#ffffff,#eef2ff);
+padding:40px;
+border-radius:20px;
+text-align:center;
+max-width:700px;
+width:100%;
+color:#1e293b;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.subscribe-box h2{
+font-size:32px;
+margin-bottom:10px;
+}
+
+.subscribe-box p{
+color:#64748b;
+margin-bottom:20px;
+}
+
+.subscribe-box form{
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.subscribe-box input{
+padding:12px 15px;
+border-radius:10px;
+border:1px solid #ddd;
+width:260px;
+outline:none;
+}
+
+.subscribe-box button{
+background:#e31837;
+color:white;
+border:none;
+padding:12px 25px;
+border-radius:25px;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+
+.subscribe-box button:hover{
+background:#c4122f;
+}
+
+.subscribe-box span{
+display:block;
+margin-top:10px;
+font-size:14px;
+color:#64748b;
+}
+
 </style>
 
 </head>
@@ -1267,6 +1332,25 @@ console.log(error);
 }
 
 </script>
+<section class="subscribe-section">
+
+<div class="subscribe-box">
+
+<h2>Subscribe for Exclusive Offers!</h2>
+
+<p>Get special discounts and food deals directly to your inbox.</p>
+
+<form method="POST" action="/subscribe/">
+<input type="email" name="email" placeholder="Enter your email..." required>
+<button type="submit">Subscribe</button>
+</form>
+
+<span>No spam. Only tasty offers 🍕</span>
+
+</div>
+
+</section>
+
 
 <footer class="footer">
 
